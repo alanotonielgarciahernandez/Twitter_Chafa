@@ -14,7 +14,7 @@ func CheckUserAlreadyExists(email string) (models.User, bool, string) {
 	defer cancel()
 
 	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("users")
+	coll := db.Collection("Users")
 
 	cond := bson.M{"email": email}
 
