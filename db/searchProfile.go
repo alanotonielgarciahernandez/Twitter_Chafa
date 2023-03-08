@@ -16,7 +16,7 @@ func SearchProfile(ID string) (models.User, error) {
 	defer cancel()
 
 	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("users")
+	coll := db.Collection("Users")
 
 	var profile models.User
 	objID, _ := primitive.ObjectIDFromHex(ID)
