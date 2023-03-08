@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-// CheckUserAlreadyExists, get an email and ask to the db if email is already in use
+// CheckUserAlreadyExists, gets an email and ask to the db if email is already in use
 func CheckUserAlreadyExists(email string) (models.User, bool, string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()

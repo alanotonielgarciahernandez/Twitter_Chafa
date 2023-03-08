@@ -6,7 +6,7 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/db"
 )
 
-// CheckDB, Revisa si la DB está disponible
+// CheckDB, checks if DB is active
 func CheckDB(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if db.PingPong() == 0 {

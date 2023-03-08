@@ -28,7 +28,7 @@ func DBconnect() *mongo.Client {
 	return client
 }
 
-// PingPong, Obtains Ping from DB
+// PingPong, obtains Ping from DB
 func PingPong() int {
 	err := MongoCN.Ping(context.TODO(), nil)
 	if err != nil {

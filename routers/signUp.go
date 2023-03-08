@@ -39,7 +39,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if status == false {
+	if !status {
 		http.Error(w, "Could not sign up", 400)
 		return
 	}
