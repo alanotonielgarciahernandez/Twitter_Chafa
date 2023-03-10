@@ -18,7 +18,6 @@ func ModifyLog(u models.User, ID string) (bool, error) {
 	coll := db.Collection("Users")
 
 	reg := make(map[string]interface{})
-
 	if len(u.Name) > 0 {
 		reg["name"] = u.Name
 	}
