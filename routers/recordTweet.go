@@ -14,6 +14,10 @@ func RecordTweet(w http.ResponseWriter, r *http.Request) {
 	var message models.Tweet
 
 	err := json.NewDecoder(r.Body).Decode(&message)
+	if err != nil {
+		http.Error(w, "Incorrect Data "+err.Error(), 400)
+		return
+	}
 
 	reg := models.RecordTweet{
 		UserID:  IDUser,
