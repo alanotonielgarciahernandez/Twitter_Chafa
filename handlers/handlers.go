@@ -29,6 +29,8 @@ func Managers() {
 	router.HandleFunc("/get-avatar", middlewares.CheckDB(middlewares.ValidateJWT(routers.GetAvatar))).Methods("GET")
 	router.HandleFunc("/get-banner", middlewares.CheckDB(middlewares.ValidateJWT(routers.GetBanner))).Methods("GET")
 
+	router.HandleFunc("/create-relation", middlewares.CheckDB(middlewares.ValidateJWT(routers.CreateRelation))).Methods("POST")
+
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = "8080"
