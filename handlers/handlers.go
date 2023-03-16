@@ -30,6 +30,7 @@ func Managers() {
 	router.HandleFunc("/get-banner", middlewares.CheckDB(middlewares.ValidateJWT(routers.GetBanner))).Methods("GET")
 
 	router.HandleFunc("/create-relation", middlewares.CheckDB(middlewares.ValidateJWT(routers.CreateRelation))).Methods("POST")
+	router.HandleFunc("/delete-relation", middlewares.CheckDB(middlewares.ValidateJWT(routers.DeleteRelation))).Methods("DELETE")
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
