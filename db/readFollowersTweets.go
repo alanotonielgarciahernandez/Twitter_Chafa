@@ -22,7 +22,7 @@ func ReadFollowersTweets(ID string, page int) ([]models.FollowersTweets, bool) {
 	cond = append(cond, bson.M{"$match": bson.M{"userid": ID}})
 	cond = append(cond, bson.M{
 		"$lookup": bson.M{
-			"from":         "tweet",
+			"from":         "Tweets",
 			"localField":   "userrelationid",
 			"foreignField": "userid",
 			"as":           "tweet",
