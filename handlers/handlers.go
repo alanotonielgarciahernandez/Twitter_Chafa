@@ -33,6 +33,8 @@ func Managers() {
 	router.HandleFunc("/delete-relation", middlewares.CheckDB(middlewares.ValidateJWT(routers.DeleteRelation))).Methods("DELETE")
 	router.HandleFunc("/check-relation", middlewares.CheckDB(middlewares.ValidateJWT(routers.CheckRelation))).Methods("GET")
 
+	router.HandleFunc("/user-list", middlewares.CheckDB(middlewares.ValidateJWT(routers.UserList))).Methods("GET")
+
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = "8080"
