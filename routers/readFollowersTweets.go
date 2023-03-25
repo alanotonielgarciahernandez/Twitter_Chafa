@@ -8,7 +8,7 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/db"
 )
 
-// ReadFollowersTweets, reads all followers Tweets of a user
+// ReadFollowersTweets, Requests all Tweets from the given user's followers
 func ReadFollowersTweets(w http.ResponseWriter, r *http.Request) {
 	if len(r.URL.Query().Get("page")) < 1 {
 		http.Error(w, "Page parameter required", http.StatusBadRequest)
@@ -23,7 +23,7 @@ func ReadFollowersTweets(w http.ResponseWriter, r *http.Request) {
 
 	res, status := db.ReadFollowersTweets(IDUser, page)
 	if !status {
-		http.Error(w, "Error while reading Tweets", http.StatusBadRequest)
+		http.Error(w, "Error while getting Tweets", http.StatusBadRequest)
 		return
 	}
 

@@ -7,13 +7,13 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/models"
 )
 
-// InsertRelation, Inserts relation to DB
+// InsertRelation, Inserts a new relation to the DB
 func InsertRelation(t models.Relation) (bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Relations")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(RelationCollection)
 
 	_, err := coll.InsertOne(ctx, t)
 	if err != nil {

@@ -9,25 +9,25 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// InsertTweet, record a Tweet to the db
+// InsertTweet, Inserts a new Tweet to the DB
 func InsertTweet(t models.RecordTweet) (string, bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Tweets")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(TweetCollection)
 
 	reg := bson.M{
 		"userid":  t.UserID,
 		"message": t.Message,
 		"date":    t.Date,
 	}
-	result, err := coll.InsertOne(ctx, reg)
+	res, err := coll.InsertOne(ctx, reg)
 	if err != nil {
 		return "", false, err
 	}
 
-	objID, _ := result.InsertedID.(primitive.ObjectID)
+	objID, _ := res.InsertedID.(primitive.ObjectID)
 
 	return objID.String(), true, nil
 }

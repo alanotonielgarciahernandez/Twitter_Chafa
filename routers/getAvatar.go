@@ -8,15 +8,15 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/db"
 )
 
-// GetAvatar, Sends avatar to HTTP
+// GetAvatar, Sends user's avatar image to HTTP
 func GetAvatar(w http.ResponseWriter, r *http.Request) {
 	ID := r.URL.Query().Get("id")
 	if len(ID) < 1 {
-		http.Error(w, "Need to send ID", http.StatusBadRequest)
+		http.Error(w, "Missing ID parameter", http.StatusBadRequest)
 		return
 	}
 
-	profile, err := db.SearchProfile(ID)
+	profile, err := db.SearchUser(ID)
 	if err != nil {
 		http.Error(w, "User not found", http.StatusBadRequest)
 		return
@@ -30,6 +30,6 @@ func GetAvatar(w http.ResponseWriter, r *http.Request) {
 
 	_, err = io.Copy(w, openFile)
 	if err != nil {
-		http.Error(w, "Error while copying image "+err.Error(), http.StatusBadRequest)
+		http.Error(w, "Error while copying the image "+err.Error(), http.StatusBadRequest)
 	}
 }

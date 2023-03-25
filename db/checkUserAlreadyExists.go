@@ -8,22 +8,22 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-// CheckUserAlreadyExists, gets an email and ask to the db if email is already in use
+// CheckUserAlreadyExists, Gets an email and asks the DB if the email is already in use
 func CheckUserAlreadyExists(email string) (models.User, bool, string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Users")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(UserCollection)
 
 	cond := bson.M{"email": email}
 
 	var res models.User
 
-	err := coll.FindOne(ctx, cond).Decode(&res)
+	findMail := coll.FindOne(ctx, cond).Decode(&res)
 	id := res.ID.Hex()
 
-	if err != nil {
+	if findMail != nil {
 		return res, false, id
 	}
 	return res, true, id

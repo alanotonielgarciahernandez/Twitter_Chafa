@@ -8,9 +8,13 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/models"
 )
 
-// CheckRelation, checks if there is a relation between 2 users
+// CheckRelation, Gets a relation ID to check if exists
 func CheckRelation(w http.ResponseWriter, r *http.Request) {
 	ID := r.URL.Query().Get("id")
+	if len(ID) < 1 {
+		http.Error(w, "Missing ID parameter", http.StatusBadRequest)
+		return
+	}
 
 	var t models.Relation
 	t.UserID = IDUser

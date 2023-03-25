@@ -8,13 +8,13 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-// ReadFollowersTweets, Read all followers Tweets of a user
+// ReadFollowersTweets, Gets all Tweets from the given user's followers
 func ReadFollowersTweets(ID string, page int) ([]models.FollowersTweets, bool) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Relations")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(RelationCollection)
 
 	skip := (page - 1) * 20
 
@@ -32,8 +32,13 @@ func ReadFollowersTweets(ID string, page int) ([]models.FollowersTweets, bool) {
 	cond = append(cond, bson.M{"$skip": skip})
 	cond = append(cond, bson.M{"$limit": 20})
 
-	cursor, err := coll.Aggregate(ctx, cond)
 	var res []models.FollowersTweets
+
+	cursor, err := coll.Aggregate(ctx, cond)
+	if err != nil {
+		return res, false
+	}
+
 	err = cursor.All(ctx, &res)
 	if err != nil {
 		return res, false

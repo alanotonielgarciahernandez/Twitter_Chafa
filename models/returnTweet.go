@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// ReturnTweet, sturcture that return Tweets
+// ReturnTweet, Returned Tweets structure
 type ReturnTweet struct {
 	ID      primitive.ObjectID `bson:"_id" json:"_id,omitempty"`
 	UserID  string             `bson:"userid" json:"userId,omitempty"`

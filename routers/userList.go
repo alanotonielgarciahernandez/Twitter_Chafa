@@ -8,7 +8,7 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/db"
 )
 
-// UserList, reads user list
+// UserList, Gets and posts the users list
 func UserList(w http.ResponseWriter, r *http.Request) {
 	typeUser := r.URL.Query().Get("type")
 	page := r.URL.Query().Get("page")
@@ -22,9 +22,9 @@ func UserList(w http.ResponseWriter, r *http.Request) {
 
 	pag := int64(pagTemp)
 
-	res, status := db.ReadAllUsers(IDUser, pag, search, typeUser)
+	res, status := db.GetAllUsers(IDUser, pag, search, typeUser)
 	if !status {
-		http.Error(w, "Error while reading users", http.StatusBadRequest)
+		http.Error(w, "Error while getting users", http.StatusBadRequest)
 		return
 	}
 

@@ -8,11 +8,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// MongoCN, connection object to DB
+// MongoCN, Connection object to DB
 var MongoCN = DBconnect()
-var clientOptions = options.Client().ApplyURI("mongodb+srv://admon:ad03m07in@cluster0.xpx9x7e.mongodb.net/test")
+var clientOptions = options.Client().ApplyURI("mongodb+srv://admon:ad03m07in@cluster0.xpx9x7e.mongodb.net/test") // MongoDB Cluster direction
 
-// DBconnect, connects to DB
+// DBName, Database Name used in al DB folder endpoints
+var DBName = "Twitter_Chafa" // You can change these names with your DB collection names
+
+var RelationCollection = "Relations"
+var TweetCollection = "Tweets"
+var UserCollection = "Users"
+
+// DBconnect, Connects to DB
 func DBconnect() *mongo.Client {
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
@@ -28,8 +35,8 @@ func DBconnect() *mongo.Client {
 	return client
 }
 
-// PingPong, obtains Ping from DB
-func PingPong() int {
+// CheckDBConnection, Obtains Ping from DB
+func CheckDBConnection() int {
 	err := MongoCN.Ping(context.TODO(), nil)
 	if err != nil {
 		return 0

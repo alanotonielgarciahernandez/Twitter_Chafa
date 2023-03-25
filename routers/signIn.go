@@ -10,32 +10,31 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/models"
 )
 
-// Login, login the user
-func Login(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-Type", "application/json")
+// SignIn, Gets the user's login information
+func SignIn(w http.ResponseWriter, r *http.Request) {
 
 	var t models.User
 
 	err := json.NewDecoder(r.Body).Decode(&t)
 	if err != nil {
-		http.Error(w, "User and/or Password incorrect "+err.Error(), 400)
+		http.Error(w, "Email and/or Password incorrect "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	if len(t.Email) == 0 {
-		http.Error(w, "Email is required ", 400)
+		http.Error(w, "Email is required ", http.StatusBadRequest)
 		return
 	}
 
 	doc, exists := db.TryLogin(t.Email, t.Password)
 	if !exists {
-		http.Error(w, "User and/or Password incorrect ", 400)
+		http.Error(w, "Email and/or Password incorrect ", http.StatusBadRequest)
 		return
 	}
 
 	jwtKey, err := jwt.GenJWT(doc)
 	if err != nil {
-		http.Error(w, "JWT Error "+err.Error(), 400)
+		http.Error(w, "JWT Error "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -43,7 +42,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		Token: jwtKey,
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(resp)
 

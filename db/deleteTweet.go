@@ -8,13 +8,13 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// DeleteTweet, deletes Tweet from DB
+// DeleteTweet, Deletes the given Tweet from DB
 func DeleteTweet(ID string, UserID string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Tweets")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(TweetCollection)
 
 	objID, _ := primitive.ObjectIDFromHex(ID)
 

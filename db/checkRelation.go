@@ -14,8 +14,8 @@ func CheckRelation(t models.Relation) (bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Relations")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(RelationCollection)
 
 	cond := bson.M{
 		"userid":         t.UserID,

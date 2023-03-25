@@ -10,13 +10,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// ReadAllUsers, gets all registered users in the db
-func ReadAllUsers(ID string, page int64, search string, class string) ([]*models.User, bool) {
+// GetAllUsers, Gets all registered users from the DB
+func GetAllUsers(ID string, page int64, search string, class string) ([]*models.User, bool) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Users")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(UserCollection)
 
 	var res []*models.User
 
@@ -51,6 +51,7 @@ func ReadAllUsers(ID string, page int64, search string, class string) ([]*models
 		include = false
 
 		found, _ = CheckRelation(r)
+
 		if class == "new" && !found {
 			include = true
 		}

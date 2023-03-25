@@ -7,9 +7,9 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
-// GenJWT, generates a JSON WEB TOKEN
+// GenJWT, Generates a JSON WEB TOKEN
 func GenJWT(t models.User) (string, error) {
-	pass := []byte("PilotoAviadorNoMuereSiNoVuelaMasAlto")
+	pass := []byte("TimeNeverWaits_ItDeliversAllEquallyToTheSameEnd_YouWhoWishToSafeguardTheFutureHoweverLimitedItMayBe_YouWillBeGivenOneYear_GoForthWithoutFalterWithYourHeartAsYourGuide") // Secret Pass
 
 	payload := jwt.MapClaims{
 		"email":     t.Email,

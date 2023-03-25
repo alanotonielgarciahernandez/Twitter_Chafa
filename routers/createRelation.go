@@ -7,11 +7,11 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/models"
 )
 
-// CreateRelation, creates the relation model
+// CreateRelation, Creates a relation model
 func CreateRelation(w http.ResponseWriter, r *http.Request) {
 	ID := r.URL.Query().Get("id")
 	if len(ID) < 1 {
-		http.Error(w, "ID is required", http.StatusBadRequest)
+		http.Error(w, "Missing ID parameter", http.StatusBadRequest)
 		return
 	}
 

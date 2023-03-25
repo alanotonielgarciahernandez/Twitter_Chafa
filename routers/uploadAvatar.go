@@ -10,11 +10,11 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/models"
 )
 
-// UploadAvatar, Uploads avatar image to Server
+// UploadAvatar, Gets an avatar image and uploads it to the user's profile in the DB
 func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 	file, handler, err := r.FormFile("avatar")
 	if err != nil {
-		http.Error(w, "Error searching avatar image "+err.Error(), http.StatusBadRequest)
+		http.Error(w, "Error while searching avatar image "+err.Error(), http.StatusBadRequest)
 		return
 	}
 	var extension = strings.Split(handler.Filename, ".")[1]
@@ -22,7 +22,7 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 
 	f, err := os.OpenFile(dir, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
-		http.Error(w, "Error while uploading image "+err.Error(), http.StatusBadRequest)
+		http.Error(w, "Error while uploading the image "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -36,7 +36,7 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 	var status bool
 
 	user.Avatar = IDUser + "." + extension
-	status, err = db.ModifyLog(user, IDUser)
+	status, err = db.ModifyUser(user, IDUser)
 	if err != nil || !status {
 		http.Error(w, "Error while saving avatar to DB "+err.Error(), http.StatusBadRequest)
 		return

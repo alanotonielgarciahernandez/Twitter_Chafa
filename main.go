@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	if db.PingPong() == 0 {
+	if db.CheckDBConnection() == 0 {
 		log.Fatal("Without connection with DB")
 		return
 	}

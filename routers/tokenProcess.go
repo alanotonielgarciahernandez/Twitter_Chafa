@@ -9,13 +9,13 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
-// Email, email value used in all endpoints
+// Email, User email value used in all endpoints
 var Email string
 
-// IDUser, returned ID of the model, that will be used in all endpoints
+// IDUser, Returned User ID from the model that will be used in all endpoints
 var IDUser string
 
-// TokenProcess, extracts token values
+// TokenProcess, Extracts JWT values
 func TokenProcess(tk string) (*models.Claim, bool, string, error) {
 	pass := []byte("PilotoAviadorNoMuereSiNoVuelaMasAlto")
 	claims := &models.Claim{}

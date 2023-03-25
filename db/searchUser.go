@@ -10,13 +10,13 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// SearchProfile, search for a profile in the db
-func SearchProfile(ID string) (models.User, error) {
+// SearchUser, Searches for a user in the DB and obtains its data
+func SearchUser(ID string) (models.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*15)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Users")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(UserCollection)
 
 	var profile models.User
 	objID, _ := primitive.ObjectIDFromHex(ID)
@@ -28,7 +28,7 @@ func SearchProfile(ID string) (models.User, error) {
 	err := coll.FindOne(ctx, cond).Decode(&profile)
 	profile.Password = ""
 	if err != nil {
-		fmt.Println("Couldn't find log " + err.Error())
+		fmt.Println("Couldn't find user " + err.Error())
 		return profile, err
 	}
 	return profile, nil

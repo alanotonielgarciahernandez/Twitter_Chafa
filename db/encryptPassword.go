@@ -2,7 +2,7 @@ package db
 
 import "golang.org/x/crypto/bcrypt"
 
-// EncryptPassword, encrypts the password given
+// EncryptPassword, Encrypts the given password
 func EncryptPassword(pass string) (string, error) {
 	cost := 8
 	bytes, err := bcrypt.GenerateFromPassword([]byte(pass), cost)

@@ -10,7 +10,7 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/models"
 )
 
-// Upload Banner, Uploads banner image to Server
+// Upload Banner, Gets a banner image an uploads it to the user's profile in the DB
 func UploadBanner(w http.ResponseWriter, r *http.Request) {
 	file, handler, err := r.FormFile("banner")
 	if err != nil {
@@ -22,7 +22,7 @@ func UploadBanner(w http.ResponseWriter, r *http.Request) {
 
 	f, err := os.OpenFile(dir, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
-		http.Error(w, "Error while uploading image "+err.Error(), http.StatusBadRequest)
+		http.Error(w, "Error while uploading the image "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -36,7 +36,7 @@ func UploadBanner(w http.ResponseWriter, r *http.Request) {
 	var status bool
 
 	user.Banner = IDUser + "." + extension
-	status, err = db.ModifyLog(user, IDUser)
+	status, err = db.ModifyUser(user, IDUser)
 	if err != nil || !status {
 		http.Error(w, "Error while saving banner to DB "+err.Error(), http.StatusBadRequest)
 		return

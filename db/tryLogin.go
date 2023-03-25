@@ -5,7 +5,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// TryLogin, tries to log in with the user given
+// TryLogin, Attempts to log the given user in
 func TryLogin(email string, password string) (models.User, bool) {
 	us, found, _ := CheckUserAlreadyExists(email)
 	if !found {
@@ -13,8 +13,8 @@ func TryLogin(email string, password string) (models.User, bool) {
 	}
 
 	passwordBytes := []byte(password)
-	passwordBD := []byte(us.Password)
-	err := bcrypt.CompareHashAndPassword(passwordBD, passwordBytes)
+	passwordDB := []byte(us.Password)
+	err := bcrypt.CompareHashAndPassword(passwordDB, passwordBytes)
 	if err != nil {
 		return us, false
 	}

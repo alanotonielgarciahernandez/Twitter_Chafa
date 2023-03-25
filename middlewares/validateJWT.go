@@ -6,7 +6,7 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/routers"
 )
 
-// Validate JWT, validates the JWT that comes with the request
+// Validate JWT, Validates the JWT that comes with the request
 func ValidateJWT(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		_, _, _, err := routers.TokenProcess(r.Header.Get("Authorization"))

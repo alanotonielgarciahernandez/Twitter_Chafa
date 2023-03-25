@@ -8,17 +8,17 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// SetUser, last step to insert user to DB
-func SetUser(u models.User) (string, bool, error) {
+// InsertUser, Inserts a new user to the DB
+func InsertUser(u models.User) (string, bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	col := db.Collection("Users")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(UserCollection)
 
 	u.Password, _ = EncryptPassword(u.Password)
 
-	result, err := col.InsertOne(ctx, u)
+	result, err := coll.InsertOne(ctx, u)
 	if err != nil {
 		return "", false, err
 	}

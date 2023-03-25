@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-// RecordTweet, db tweet model
+// RecordTweet, DB Tweet model
 type RecordTweet struct {
 	UserID  string    `bson:"userid" json"userid,omitempty"`
 	Message string    `bson:"message" json"message,omitempty"`

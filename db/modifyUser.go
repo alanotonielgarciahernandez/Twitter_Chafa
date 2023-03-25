@@ -9,13 +9,13 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// ModifyLog, modifies user profile
-func ModifyLog(u models.User, ID string) (bool, error) {
+// ModifyUser, Modifies the given user profile in the DB
+func ModifyUser(u models.User, ID string) (bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Users")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(UserCollection)
 
 	reg := make(map[string]interface{})
 	if len(u.Name) > 0 {

@@ -9,13 +9,13 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/models"
 )
 
-// RecordTweet, allow record the Tweet in the db
-func RecordTweet(w http.ResponseWriter, r *http.Request) {
+// WriteTweet, Writes a Tweet
+func WriteTweet(w http.ResponseWriter, r *http.Request) {
 	var message models.Tweet
 
 	err := json.NewDecoder(r.Body).Decode(&message)
 	if err != nil {
-		http.Error(w, "Incorrect Data "+err.Error(), 400)
+		http.Error(w, "Error in data received "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -27,12 +27,12 @@ func RecordTweet(w http.ResponseWriter, r *http.Request) {
 
 	_, status, err := db.InsertTweet(reg)
 	if err != nil {
-		http.Error(w, "Error while trying insert the log, try again "+err.Error(), 400)
+		http.Error(w, "Error while trying to insert the Tweet, try again "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	if !status {
-		http.Error(w, "Can't insert the Tweet", 400)
+		http.Error(w, "Can't insert the Tweet", http.StatusBadRequest)
 		return
 	}
 

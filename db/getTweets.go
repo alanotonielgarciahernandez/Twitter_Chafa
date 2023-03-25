@@ -10,13 +10,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// ReadTweet, gets Tweets from the db and read them
-func ReadTweet(ID string, pag int64) ([]*models.ReturnTweet, bool) {
+// GetTweets, Gets a user's Tweets from the DB
+func GetTweets(ID string, pag int64) ([]*models.ReturnTweet, bool) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("Twitter_Chafa")
-	coll := db.Collection("Tweets")
+	db := MongoCN.Database(DBName)
+	coll := db.Collection(TweetCollection)
 
 	var res []*models.ReturnTweet
 

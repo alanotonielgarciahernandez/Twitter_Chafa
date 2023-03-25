@@ -7,8 +7,14 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/models"
 )
 
+// DeleteRelation, Gets a relation ID to delete it
 func DeleteRelation(w http.ResponseWriter, r *http.Request) {
 	ID := r.URL.Query().Get("id")
+	if len(ID) < 1 {
+		http.Error(w, "Missing ID parameter", http.StatusBadRequest)
+		return
+	}
+
 	var t models.Relation
 	t.UserID = IDUser
 	t.UserRelationID = ID
@@ -19,7 +25,7 @@ func DeleteRelation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if !status {
-		http.Error(w, "Can't remove relation"+err.Error(), http.StatusBadRequest)
+		http.Error(w, "Can't remove relation", http.StatusBadRequest)
 	}
 
 	w.WriteHeader(http.StatusCreated)

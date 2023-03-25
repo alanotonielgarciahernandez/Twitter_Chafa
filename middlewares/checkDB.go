@@ -6,11 +6,11 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/db"
 )
 
-// CheckDB, checks if DB is active
+// CheckDB, Checks if DB is active
 func CheckDB(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if db.PingPong() == 0 {
-			http.Error(w, "Lost connection with DB", 500)
+		if db.CheckDBConnection() == 0 {
+			http.Error(w, "Lost connection with DB", http.StatusInternalServerError)
 			return
 		}
 		next.ServeHTTP(w, r)

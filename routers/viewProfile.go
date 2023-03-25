@@ -7,7 +7,7 @@ import (
 	"github.com/Brolervi/Twitter_Chafa/db"
 )
 
-// ViewProfile, allows extract profile data
+// ViewProfile, Gets a user ID to extract his data
 func ViewProfile(w http.ResponseWriter, r *http.Request) {
 	ID := r.URL.Query().Get("id")
 	if len(ID) < 1 {
@@ -15,9 +15,9 @@ func ViewProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	profile, err := db.SearchProfile(ID)
+	profile, err := db.SearchUser(ID)
 	if err != nil {
-		http.Error(w, "Error while searching log "+err.Error(), 400)
+		http.Error(w, "Error while searching user "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
